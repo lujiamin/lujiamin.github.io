@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://lujiamin.github.io/2017/06/16/ComputerNetwork/index.html">
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="试卷附录（掌握各字段含义） 以太网MAC帧结构 IPv4数据报格式 UCP和TCP报文段格式 HDLC三种帧类型 汉明码  第1章——计算机网络体系结构 计算机网络的概念 把分布在不同地点且具有独立功能的多个计算机，通过通信设备和线路连接起来，在功能完善的网络软件运行环境下，以实现网络中资源共享为目标的系统">
-<meta property="og:updated_time" content="2017-06-15T15:14:19.794Z">
+<meta property="og:updated_time" content="2017-06-16T03:53:17.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="the review of Computer Network">
 <meta name="twitter:description" content="试卷附录（掌握各字段含义） 以太网MAC帧结构 IPv4数据报格式 UCP和TCP报文段格式 HDLC三种帧类型 汉明码  第1章——计算机网络体系结构 计算机网络的概念 把分布在不同地点且具有独立功能的多个计算机，通过通信设备和线路连接起来，在功能完善的网络软件运行环境下，以实现网络中资源共享为目标的系统">
@@ -546,7 +546,185 @@
 <li>在发送一个MAC帧之前，还会发送7字节前导符和1字节帧开始符。帧长不包括这些</li>
 </ul>
 </li>
-<li>CSMA/CD工作过程</li>
+<li>CSMA/CD工作过程<ul>
+<li>载波监听，冲突检测，多次访问</li>
+<li>发送方工作过程<ul>
+<li>MAC协议将LLC帧封装在用户数据字段，形成MAC帧</li>
+<li>监听传输媒体，检测是否有信号正在传输</li>
+<li>有信号则继续监听，否则发送数据，同时继续监听</li>
+<li>发送过程无冲突，则发送完成，否则立即终止本次发送</li>
+<li>发送次数小于阈值，退避算法计算退避时间，重新发送。否则停止发送，报告网络故障</li>
+</ul>
+</li>
+<li>接收方工作过程<ul>
+<li>监听传输媒体，有信号则接收信息，得到MAC帧，对于残帧不予理会</li>
+<li>分析目的地址，为本站则复制该帧，否则丢弃</li>
+<li>组播和广播的数据帧会有多个站点接收</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>争用期（2τ）——端到端往返时延，实际所取的争用期大于端到端往返时延</li>
+<li>以太网的连接方法<ul>
+<li>双绞线</li>
+<li>集线器(HUB)——用于连接网络工作站，实现集中汇接，工作在物理层</li>
+<li>10BASE-T(双绞线)——10：10Mb/s，T：双绞线，BASE:电缆上的信号是基带信号，曼切斯特编码</li>
+<li>10BASE-F(光纤)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="局域网的拓展"><a href="#局域网的拓展" class="headerlink" title="局域网的拓展"></a>局域网的拓展</h4><ul>
+<li>物理层拓展，集线器连接，造成更大的冲突域，最大吞吐量没有提高<ul>
+<li>扩大了局域网覆盖的地理范围，增加用户数</li>
+<li>冲突概率增加，CSMA/CD机制失效</li>
+</ul>
+</li>
+<li>链路层拓展<ul>
+<li>网桥——根据MAC帧的目的地址对收到的帧进行转发</li>
+<li>网桥具有过滤帧的功能——先检查帧的目的MAC地址，然后转发</li>
+<li>网段A——网桥——网段B，目的MAC地址属于同一网段，丢弃；属于另一网段，向特定端口转发；地址表中没有或者为广播地址，则向其他端口广播</li>
+<li>优点<ul>
+<li>过滤通信量</li>
+<li>扩大物理范围</li>
+<li>提高可靠性</li>
+<li>互连不同物理层、不同MAC子层和不同速率的局域网</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>查找存储转发表，导致转发延时</li>
+<li>在MAC子层没有流量控制功能</li>
+<li>不同MAC子层的网桥连接在一起，协议转换增加处理时延</li>
+<li>适合规模不太大的局域网</li>
+</ul>
+</li>
+<li>透明网桥<ul>
+<li>指局域网上的站点并不知道锁发送的帧经过哪几个网桥</li>
+<li></li>
+</ul>
+</li>
+<li>源路由网桥<ul>
+<li>缺乏透明性</li>
+</ul>
+</li>
+<li>以太网交换机——交换式集线器，第二层交换机，工作在数据链路层<ul>
+<li>实质是多端口网桥</li>
+<li>用户在通信时独占带宽</li>
+<li>工作方式（3种）<ul>
+<li>直通交换方式——接收到数据帧就立即按目的MAC地址转发，提高了转发速率。缺点是不检查出错帧</li>
+<li>存储转发方式——完全接收和缓存下来，再按目的MAC地址转发。传输延迟大</li>
+<li>无碎片交换方式——收到64字节以后才开始以直通方式转发帧，避免了碎片帧，但可能转发差错帧</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="高速以太网"><a href="#高速以太网" class="headerlink" title="高速以太网"></a>高速以太网</h4><ul>
+<li>速率在100Mb/s以上</li>
+<li>100BASE-T</li>
+<li>千兆以太网</li>
+<li>万兆以太网——光纤</li>
+</ul>
+<h4 id="虚拟局域网-VLAN"><a href="#虚拟局域网-VLAN" class="headerlink" title="虚拟局域网(VLAN)"></a>虚拟局域网(VLAN)</h4><ul>
+<li>是在现有局域网提供的划分逻辑组的一种服务，与物理位置无关</li>
+<li>在以太网的帧格式中插入VLAN标记的4字节标识符——用来指明发送该帧的工作站属于哪一个虚拟局域网，实现逻辑组的划分</li>
+<li>帧最大长度变为1522字节</li>
+</ul>
+<h4 id="无线局域网"><a href="#无线局域网" class="headerlink" title="无线局域网"></a>无线局域网</h4><ul>
+<li>是以无线方式实现局部范围内的多台计算机互相通信的一种局域网技术</li>
+<li>CSMA/CA（冲突避免）<ul>
+<li>原因<ul>
+<li>无线终端处理能力相对较弱，不适合边发边检测</li>
+<li>存在隐蔽站问题和暴露站问题</li>
+</ul>
+</li>
+<li>在CSMA基础上增加冲突避免和确认机制，用以确定移动站什么时间能发送和接收数据</li>
+<li>标准规定，所有站在完成发送后，必须等待一段很短的时间才能发送下一帧。称为帧间间隔</li>
+<li>帧间间隔<ul>
+<li>SIFS——短帧间间隔</li>
+<li>PIFS——点协调功能帧间间隔</li>
+<li>DIFS——分布协调功能帧间间隔</li>
+</ul>
+</li>
+<li>避免冲撞<ul>
+<li>信道预约，RTS(Request To Send，请求发送)，CTS(Clear To Send，允许发送)，收到CTS帧后允许发送，但仍会有冲突。使用二进制退避算法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="广域网"><a href="#广域网" class="headerlink" title="广域网"></a>广域网</h4><ul>
+<li>广域网是用来实现长距离传输数据的网络，由节点交换机和链路构成。</li>
+<li>分类<ul>
+<li>无连接的网络服务，数据报服务</li>
+<li>面向连接的网络服务，虚电路服务</li>
+</ul>
+</li>
+<li>数据报服务<ul>
+<li>不可靠，不能保证服务质量</li>
+<li>网络随时都可接收主机发送的分组</li>
+<li>网络为每个分组独立地选择路由</li>
+<li>网络交付的分组不保证顺序，不保证不丢失</li>
+</ul>
+</li>
+<li>虚电路服务<ul>
+<li>需要建立连接，数据传输，连接释放的过程</li>
+<li>服务质量有保证</li>
+<li>属于同一虚电路的分组使用同一路由进行转发</li>
+<li>保证顺序到达</li>
+</ul>
+</li>
+<li>广域网中的分组交换<ul>
+<li>主机地址——交换机编号+交换机端口编号，[1,3]表示与交换机1的端口3相连的主机  </li>
+<li>分组转发机制<ul>
+<li>分组交换机在接收到一个分组时，查找分组交换机中转发表，确定应该转向的下一条</li>
+<li>交换机是根据目的站的交换机号来进行路由转发的</li>
+</ul>
+</li>
+<li>默认路由<ul>
+<li>将具有相同下一条的条目进行合并作为默认路由，但是比其他项目的优先级低</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>X.25分组交换网<ul>
+<li>向高层提供面向连接的虚电路服务</li>
+<li>分组层</li>
+<li>数据链路层</li>
+<li>物理层</li>
+</ul>
+</li>
+<li>帧中继<ul>
+<li>虚电路服务，被称为第二代的X.25</li>
+<li>优点<ul>
+<li>减少了网络互连的代价</li>
+<li>提高了性能</li>
+<li>增加了互操作性</li>
+<li>协议的独立性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ATM（异步传递方式，Asynchronous Transfer Mode）<ul>
+<li>是建立在电路交换和分组交换的基础上的一种面向连接的快速分组交换技术</li>
+<li>元素<ul>
+<li>ATM端点</li>
+<li>ATM交换机</li>
+</ul>
+</li>
+<li>物理层</li>
+<li>ATM层——完成交换和复用，以及流量控制<ul>
+<li>虚通路标志 VCI（Virtual Channel Identifier）——两个或以上端点之间的运送ATM信元的通路</li>
+<li>虚通道标识符 VPI（Virtual Path Identifier）——包含有许多相同端点的虚通路，这些虚通路都使用同一个VPI</li>
+</ul>
+</li>
+<li>ATM适配层，AAL<ul>
+<li>增强ATM所提供的服务，并向上高层提供各种不同的服务</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -554,7 +732,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lujiamin.github.io/2017/06/16/ComputerNetwork/" data-id="cj3ykijzn000094op83xwvzwm" class="article-share-link">Share</a>
+      <a data-url="https://lujiamin.github.io/2017/06/16/ComputerNetwork/" data-id="cj3zblyq9000020opvd48pw0k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/review/">review</a></li></ul>
