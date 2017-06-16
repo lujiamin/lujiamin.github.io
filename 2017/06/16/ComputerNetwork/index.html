@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://lujiamin.github.io/2017/06/16/ComputerNetwork/index.html">
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="试卷附录（掌握各字段含义） 以太网MAC帧结构 IPv4数据报格式 UCP和TCP报文段格式 HDLC三种帧类型 汉明码  第1章——计算机网络体系结构 计算机网络的概念 把分布在不同地点且具有独立功能的多个计算机，通过通信设备和线路连接起来，在功能完善的网络软件运行环境下，以实现网络中资源共享为目标的系统">
-<meta property="og:updated_time" content="2017-06-16T03:53:17.299Z">
+<meta property="og:updated_time" content="2017-06-16T16:18:40.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="the review of Computer Network">
 <meta name="twitter:description" content="试卷附录（掌握各字段含义） 以太网MAC帧结构 IPv4数据报格式 UCP和TCP报文段格式 HDLC三种帧类型 汉明码  第1章——计算机网络体系结构 计算机网络的概念 把分布在不同地点且具有独立功能的多个计算机，通过通信设备和线路连接起来，在功能完善的网络软件运行环境下，以实现网络中资源共享为目标的系统">
@@ -728,11 +728,459 @@
 </ul>
 </li>
 </ul>
+<h2 id="第5章-网络层和网络互连"><a href="#第5章-网络层和网络互连" class="headerlink" title="第5章 网络层和网络互连"></a>第5章 网络层和网络互连</h2><h4 id="网络层概念"><a href="#网络层概念" class="headerlink" title="网络层概念"></a>网络层概念</h4><ul>
+<li>网络互联设备<ul>
+<li>物理层：转发器</li>
+<li>数据链路层：网桥或交换机</li>
+<li>网络层：路由器</li>
+<li>传输层及以上：网关</li>
+</ul>
+</li>
+</ul>
+<h4 id="网络互连"><a href="#网络互连" class="headerlink" title="网络互连"></a>网络互连</h4><ul>
+<li>因特网IP层的服务是一个尽最大努力传送的，不可靠，无连接的数据报存储转发的分组交换系统，IP（Internet Protocol网际协议）</li>
+<li>IP地址<ul>
+<li>A：0…(8+24)网络号2~126</li>
+<li>B：10…(16+16)</li>
+<li>C：110…(24+8)</li>
+<li>D：1110…</li>
+<li>E：11110…</li>
+</ul>
+</li>
+<li>IP地址管理机构在分配IP地址时只分配网络号</li>
+<li>用转发器或网桥(交换机)连接起来的局域网，逻辑上仍然是一个网络，具有相同的网络号</li>
+<li>地址解析协议（ARP）——为网络层地址和数据链路层地址提供动态映射<ul>
+<li>主机A向主机B发送IP数据报，先在其高速缓存表中查看有无主机B的地址，如有，查看其硬件地址，如无，则广播一个ARP请求报文</li>
+</ul>
+</li>
+<li>因特网的基本传送单元是IP数据报<ul>
+<li>IP数据报：首部(20字节)+[可选字段]+数据，可选字段（1~40字节）</li>
+<li>IP数据报首部的分析</li>
+</ul>
+</li>
+<li>无连接的数据报传送<ul>
+<li>路由器实际上上一种通信专用的计算机，CPU+存储器+接口</li>
+<li>功能：网络分段，隔离广播风暴，实现子网之间的信息传递，提供安全访问的机制</li>
+<li>直接交付——目的主机和本机在同一个物理网络上</li>
+<li>间接交付——获取路由器的物理地址，交付给路由器</li>
+<li>IP数据报转发算法<ul>
+<li>从数据报取出目的站地址I</li>
+<li>表中包含I的特定路由</li>
+<li>与直接相连的网络地址匹配，交给目的站</li>
+<li>表中包含到网络N的路由</li>
+<li>表中包含默认路由</li>
+<li>向源站报告，目的不可达</li>
+</ul>
+</li>
+<li>主机收到数据报<ul>
+<li>取出目的地址</li>
+<li>匹配，交给高层处理</li>
+<li>不匹配，丢弃</li>
+</ul>
+</li>
+<li>路由器收到数据报<ul>
+<li>取出数据报中的目的IP地址</li>
+<li>和任一个物理网络连接的IP地址匹配，是广播地址，则接收</li>
+<li>不匹配，将首部的生存时间TTL减1</li>
+<li>TTL=0，丢弃，向源站发送超时差错报告</li>
+<li>TTL&gt;0，重新计算校验和，并转发数据报</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="ICMP-Internet-Control-Message-Protocol，因特网差错和控制协议"><a href="#ICMP-Internet-Control-Message-Protocol，因特网差错和控制协议" class="headerlink" title="ICMP(Internet Control Message Protocol，因特网差错和控制协议)"></a>ICMP(Internet Control Message Protocol，因特网差错和控制协议)</h4><ul>
+<li>ICMP报文<ul>
+<li>前三个字段格式统一：类型(1字节)+代码(1字节)+校验和(2字节)</li>
+<li>差错报告报文</li>
+<li>提供信息的报文</li>
+</ul>
+</li>
+<li>目的不可达报文<ul>
+<li>类型为3</li>
+<li>代码部分<ul>
+<li>0——网络不可达</li>
+<li>1——主机不可达</li>
+<li>2——协议不可达</li>
+<li>3——端口不可达</li>
+<li>4——需要分片，但DF标志置位</li>
+<li>5——源路由失败</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>超时报文<ul>
+<li>类型为11</li>
+<li>代码部分<ul>
+<li>0——传输过程IP TTL(time to live)超时</li>
+<li>1——分片重装超时</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>回应请求和应答报文<ul>
+<li>PING（Packet InterNet Groper）</li>
+<li>PING 用于测试两个主机之间的连通性</li>
+<li>类型值为8——回文请求报文</li>
+<li>类型值为0——回应应答报文</li>
+</ul>
+</li>
+</ul>
+<h4 id="IP编址技术"><a href="#IP编址技术" class="headerlink" title="IP编址技术"></a>IP编址技术</h4><ul>
+<li>子网编址<ul>
+<li>IP地址：网络号+子网号+主机号</li>
+<li>子网掩码——网络号、子网号对应位为1，主机号对应位为0</li>
+<li>子网地址 = 子网掩码 &amp; IP地址</li>
+<li>子网划分</li>
+<li>子网转发<ul>
+<li>IP地址和子网掩码相与，</li>
+<li>和目的地址匹配，直接交付</li>
+<li>发往下一跳地址</li>
+<li>没找到，向源站发送目的不可达差错报告</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CIDR(Classless Inter-Domain Routing，无分类域间路由选择)<ul>
+<li>网络前缀+主机号</li>
+<li>IP地址后加‘/’，写上网络前缀所占的比特数</li>
+<li>前缀长度不超过23bit的CIDR地址块都包含了连续的C类地址，这些C类地址合起来构成了超网</li>
+<li>路由查找算法<ul>
+<li>最长前缀匹配</li>
+<li>二叉线索树</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>专用IP地址<ul>
+<li>IANA保留了三块只能用于专用互联网内部通信的IP地址</li>
+<li>10.0.0.0~10.255.255.255</li>
+<li>172.16.0.0~172.31.255.255</li>
+<li>192.168.0.0~192.168.255.255</li>
+</ul>
+</li>
+</ul>
+<h4 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h4><ul>
+<li>自治系统与路由选择协议的分类<ul>
+<li>路由算法分类<ul>
+<li>静态路由选择策略——不能动态地适应网络变化</li>
+<li>动态路由选择策略——自适应路由选择，实现较为复杂</li>
+</ul>
+</li>
+<li>路由选择协议<ul>
+<li>IGP（Interior Gateway Protocol）自治系统内部路由信息所用的任何协议统称</li>
+<li>EGP（External Gateway Protocol）外部，两个自治系统之间传递网络可达性信息所用的协议统称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内部网关协议RIP<ul>
+<li>Routing Information Protocol，基于距离向量算法，距离也称跳数，每经过一个路由器，跳数加1</li>
+<li>距离短，路由好，一条路径最多包含15个路由器，16相当于不可达</li>
+<li>路由信息交换特点<ul>
+<li>一开始，各路由器表只有到相邻路由器的信息</li>
+<li>每个路由器只和相邻的路由器交换并更新路由信息，</li>
+</ul>
+</li>
+<li>使用UDP进行传送，端口号为520</li>
+<li>应用层协议</li>
+<li>缺点：网络出现故障时，需要较长时间才能将信息传送到所有的路由器</li>
+<li>优点：实现简单，开销较小</li>
+</ul>
+</li>
+<li>内部网关协议OSPF<ul>
+<li>最短路径优先算法</li>
+<li>使用距离向量路由选择协议时——路由器依赖于邻居的路由选择策略</li>
+<li>使用链路状态路由选择协议时——每台路由器都完全了解网络拓扑</li>
+<li>OSPF将一个自治系统分为若干个更小的范围，叫做区域<ul>
+<li>骨干区域</li>
+<li>非骨干区域</li>
+<li>区域内部的路由器只知道本区域的完整网络拓扑</li>
+<li>利用洪泛法交换链路状态信息的范围局限于每一个区域</li>
+</ul>
+</li>
+<li>直接用IP数据报传送，OSPF位于网络层</li>
+<li>OSPF分组类型<ul>
+<li>问候(Hello)分组——用于发现邻居，建立邻接关系</li>
+<li>数据库描述分组</li>
+<li>链路状态请求分组</li>
+<li>链路状态更新分组</li>
+<li>链路状态确认分组</li>
+</ul>
+</li>
+<li>OSPF规定每隔一段时间要刷新一次数据库中的链路状态</li>
+</ul>
+</li>
+<li>外部网关协议BGP<ul>
+<li>BGP报文<ul>
+<li>Open报文</li>
+<li>Keepalive报文</li>
+<li>Update报文</li>
+<li>Notification报文</li>
+</ul>
+</li>
+<li>特点<ul>
+<li>建立TCP连接</li>
+<li>是一个路径向量协议</li>
+<li>支持CIDR</li>
+<li>采用增量更新节约网络带宽</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="IP组播"><a href="#IP组播" class="headerlink" title="IP组播"></a>IP组播</h4><ul>
+<li>组播(Multicast)——是一种对于某种特定组成员的广播，有限范围的广播形式</li>
+<li>IP组播是对硬件组播的抽象</li>
+<li>组播可明显减少网络中资源的消耗</li>
+<li>IP使用D类地址支持组播，组播地址只能用于目的地址</li>
+<li>IGMP（Internet Group Management Protocol，网际组管理协议），使用IP数据报传输。是网际协议IP的一个组成部分</li>
+<li>网1（支持组播）——网2（支持组播），两者之间使用隧道技术，隧道中通行的单播IP数据报</li>
+</ul>
+<h4 id="移动IP"><a href="#移动IP" class="headerlink" title="移动IP"></a>移动IP</h4><ul>
+<li>特征<ul>
+<li>宏观移动性</li>
+<li>透明性</li>
+<li>与IPv4互操作性</li>
+<li>物理广泛性</li>
+<li>安全性</li>
+</ul>
+</li>
+<li>归属地址(主地址)</li>
+<li>转交地址(次地址)</li>
+</ul>
+<h4 id="VPN和NAT"><a href="#VPN和NAT" class="headerlink" title="VPN和NAT"></a>VPN和NAT</h4><ul>
+<li>VPN——虚拟专用网络<ul>
+<li>VPN中任何一对计算机之间的通信对外接是隐藏的</li>
+<li>存在两个网络<ul>
+<li>物理网络</li>
+<li>逻辑网络——建立在物理网络基础之上</li>
+</ul>
+</li>
+<li>使用的技术<ul>
+<li>隧道技术(IP-in-IP封装)</li>
+<li>加密技术——对转发的数据报进行加密</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NAT——网络地址转换(Network Address Translation)<ul>
+<li>两种NAT方法<ul>
+<li>基本网络地址转换(NAT)——并发访问特定外部地址存在限制</li>
+<li>网络地址和端口转换(NAPT)——通过对TCP和UDP端口以及IP地址的转换允许并发访问</li>
+</ul>
+</li>
+<li>缺点：通信仅限于TCP和UDP</li>
+<li>优点：能够仅用一个全球有效地址获得通用性、透明性和并发性</li>
+</ul>
+</li>
+</ul>
+<h2 id="第6章——传输层"><a href="#第6章——传输层" class="headerlink" title="第6章——传输层"></a>第6章——传输层</h2><h4 id="传输服务"><a href="#传输服务" class="headerlink" title="传输服务"></a>传输服务</h4><ul>
+<li>传输层作用<ul>
+<li>应用进程通信</li>
+<li>差错校验</li>
+<li>协议</li>
+<li>合理传输服务</li>
+<li>服务原语</li>
+</ul>
+</li>
+</ul>
+<h4 id="传输层编址"><a href="#传输层编址" class="headerlink" title="传输层编址"></a>传输层编址</h4><ul>
+<li>端口是应用层进程的标识</li>
+<li>常用端口</li>
+<li>套接字(Socket)——IP地址和端口号的组合</li>
+<li>无连接<ul>
+<li>传输层：UDP</li>
+<li>网络层：IP</li>
+<li>数据链路层：CSMA/CD</li>
+</ul>
+</li>
+<li>面向连接<ul>
+<li>传输层：TCP</li>
+<li>网络层：X.25分组级</li>
+<li>HDLC，PPP</li>
+</ul>
+</li>
+</ul>
+<h4 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h4><ul>
+<li>UDP只在IP数据报服务至上增加了很少的功能，即端口的功能和有限的差错检测</li>
+<li>无连接，不可靠，面向报文，同时支持点到点和多点之间</li>
+<li>UDP格式<ul>
+<li>首部：源端口(2字节)+目的端口(2字节)+长度(2字节)+检验和(2字节)+数据</li>
+<li>IP数据报的数据=UDP首部+UDP数据</li>
+<li>IP数据报=IP首部+IP数据</li>
+<li>伪首部——只参与计算UDP校验和，既不向下层传送，也不向上层递交。在UDP首部之前增加12字节（源IP地址（4）+目的IP地址（4）+0（1）+协议（1）+长度（1））</li>
+</ul>
+</li>
+<li>校验和计算<ul>
+<li>伪首部参与计算</li>
+<li>进位加至末尾位</li>
+<li>累加结果取反码即为校验和</li>
+</ul>
+</li>
+</ul>
+<h4 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h4><ul>
+<li>面向连接，可靠传输，只能进行点到点通信，面向字节流</li>
+<li>TCP首部格式<ul>
+<li>前20字节固定</li>
+<li>源端口(2)+目的端口(2)</li>
+<li>序号(4)</li>
+<li>确认号(4)——期望收到下一个报文段的数据的第一个字节的序号</li>
+<li>数据偏移(4bit)+保留+标志位(6bit)+窗口(2)</li>
+<li>检验和(2)+紧急指针(2)</li>
+<li>选项(0~40字节)</li>
+</ul>
+</li>
+<li>三次握手——建立连接<ul>
+<li>连接过程(图)</li>
+<li>为什么采用三次握手</li>
+</ul>
+</li>
+<li>四次握手——连接释放<ul>
+<li>半关闭</li>
+<li>双向关闭</li>
+<li>连接释放过程(图)</li>
+</ul>
+</li>
+<li>可靠传输保证<ul>
+<li>序号确认机制</li>
+<li>超时重传机制</li>
+<li>定时器设置</li>
+</ul>
+</li>
+<li>超时重传机制<ul>
+<li>RTT自适应算法</li>
+<li>平均往返时延计算</li>
+</ul>
+</li>
+<li>定时器设置<ul>
+<li>重传定时器</li>
+<li>持续定时器</li>
+<li>保活定时器</li>
+</ul>
+</li>
+<li>TCP流量控制<ul>
+<li>大小可变滑动窗口</li>
+<li>接收窗口</li>
+<li>发送窗口</li>
+</ul>
+</li>
+<li>TCP拥塞控制<ul>
+<li>避免网络发生拥塞，或者缓解已经发生的拥塞</li>
+<li>传输层实现</li>
+<li>慢启动</li>
+<li>拥塞避免</li>
+<li>快速重传</li>
+<li>快速恢复</li>
+</ul>
+</li>
+<li>TCP相关内容多看例题     </li>
+</ul>
+<h2 id="第7章——应用层"><a href="#第7章——应用层" class="headerlink" title="第7章——应用层"></a>第7章——应用层</h2><ul>
+<li>网络应用模式<ul>
+<li>以大型机为中心</li>
+<li>以共享服务器为中心</li>
+<li>客户机-服务器</li>
+<li>基于web的客户机-服务器</li>
+<li>对等网络应用模式(Peer-to-Peer)</li>
+</ul>
+</li>
+<li>域名系统(DNS，Domain Name System)<ul>
+<li>域名到IP地址的解析</li>
+<li>域名</li>
+</ul>
+</li>
+<li>远程登录(Telnet)  </li>
+<li>文件传输协议(FTP)<ul>
+<li>客户服务器方式</li>
+<li>主进程+从属进程，两者并发工作</li>
+<li>控制接连+数据连接</li>
+</ul>
+</li>
+<li>简单文本传输协议(TFTP)<ul>
+<li>UDP数据报，需要有自己的差错改正措施</li>
+<li>工作原理<ul>
+<li>数据PDU也称文件块，块按序编号</li>
+<li>每次传送的数据PDU不超过512字节</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>引导程序协议(BOOTP)</li>
+<li>动态主机配置协议(DHCP)<ul>
+<li>现在DHCP服务器数据库中查找该主机配置信息，有则采用提供报文将其会送到主机；找不到，则从服务器IP地址池中任选一个分配给主机</li>
+</ul>
+</li>
+<li>简单邮件传输协议(SMTP)<ul>
+<li>用于发送邮件</li>
+<li>三个阶段<ul>
+<li>连接建立</li>
+<li>邮件传送</li>
+<li>连接释放</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>邮局协议(POP3)<ul>
+<li>用于接收邮件</li>
+<li>用户读取，POP3服务器就将该邮件删除</li>
+</ul>
+</li>
+<li>因特网报文存取协议(IMAP4)<ul>
+<li>用于接收邮件</li>
+<li>用户读取，仍然保存收到的邮件</li>
+</ul>
+</li>
+<li>通用因特网邮件拓展(MIME)<ul>
+<li>增加了SMTP的功能，加入了图像视频附件等数据内容</li>
+</ul>
+</li>
+<li>超文本传输协议(HTTP)<ul>
+<li>URL——统一资源定位符，定位文档</li>
+<li>使用TCP连接进行的可靠传送</li>
+<li>无状态协议</li>
+<li>面向事务的客户服务器协议</li>
+<li>请求报文和响应报文</li>
+</ul>
+</li>
+</ul>
+<h2 id="第8章——网络管理和网络安全"><a href="#第8章——网络管理和网络安全" class="headerlink" title="第8章——网络管理和网络安全"></a>第8章——网络管理和网络安全</h2><ul>
+<li>网络管理5大功能域<ul>
+<li>配置管理</li>
+<li>性能管理</li>
+<li>故障管理</li>
+<li>计费管理</li>
+<li>安全管理</li>
+</ul>
+</li>
+<li>简单网络管理协议(SNMP)</li>
+<li>网络安全威胁因素<ul>
+<li>人为</li>
+<li>自然</li>
+</ul>
+</li>
+<li>加密算法<ul>
+<li>对称加密</li>
+<li>非对称加密</li>
+</ul>
+</li>
+</ul>
+<h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2><ul>
+<li>128位</li>
+<li>16进制+冒号(:)</li>
+<li>零压缩，一个地址中只能用一次</li>
+<li>地址种类和格式</li>
+<li>IPv4到IPv6过渡<ul>
+<li>双协议栈</li>
+<li>隧道技术</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lujiamin.github.io/2017/06/16/ComputerNetwork/" data-id="cj3zblyq9000020opvd48pw0k" class="article-share-link">Share</a>
+      <a data-url="https://lujiamin.github.io/2017/06/16/ComputerNetwork/" data-id="cj40283bw000074opfb5w2rgc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/review/">review</a></li></ul>
