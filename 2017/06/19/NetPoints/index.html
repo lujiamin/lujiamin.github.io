@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://lujiamin.github.io/2017/06/19/NetPoints/index.html">
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="网络层 子网划分中，将主机地址划分为子网号和主机号。子网号和主机号都不能是全0或全1 CIDR中，‘/’后面的N表示可以自由分配32-N位 ICMP封装在IP数据报中，再封装在链路层的帧中 对于已经分片的分组，只对第一个分片产生ICMP差错报文 ARP协议中，ARP请求是广播方式，ARP响应是单播 将IP网络划分成子网，好处是减少广播域的大小 CIDR技术的作用是把小的网络汇聚成大的超网 在IP首">
-<meta property="og:updated_time" content="2017-06-19T10:31:50.674Z">
+<meta property="og:updated_time" content="2017-06-19T14:45:54.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="the Points of Computer Network">
 <meta name="twitter:description" content="网络层 子网划分中，将主机地址划分为子网号和主机号。子网号和主机号都不能是全0或全1 CIDR中，‘/’后面的N表示可以自由分配32-N位 ICMP封装在IP数据报中，再封装在链路层的帧中 对于已经分片的分组，只对第一个分片产生ICMP差错报文 ARP协议中，ARP请求是广播方式，ARP响应是单播 将IP网络划分成子网，好处是减少广播域的大小 CIDR技术的作用是把小的网络汇聚成大的超网 在IP首">
@@ -113,11 +113,104 @@
 <li>远程登录需要可靠连接，使用UDP不适合</li>
 <li>实时传输需要使用UDP</li>
 </ul>
+<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><ul>
+<li>广域网——覆盖范围很广的长距离网络<ul>
+<li>分组交换方式</li>
+<li>节点交换机采用存储转发的方式</li>
+<li>其网络层有无连接的数据报服务和面向连接虚电路服务</li>
+<li>PPP协议——面向字节，支持点对点的链路通信，只支持全双工链路，具备用户认证和动态IP地址分配，两端可以运行不同的网络层协议</li>
+<li>PPP——提供差错检测，但不提供纠错，不可靠的传输协议，不使用序号和确认机制，不采用CSMA/CD协议</li>
+<li>HDLC协议——面向比特，使用了序号和确认机制，能够进行可靠传输<ul>
+<li>传输过程只能有主站启动的是——正常响应模式</li>
+<li>从站没有接到主站的允许也能进行传输的是——异步响应模式</li>
+<li>平衡结构，每一个复合站都可以进行传输的是——异步平衡模式</li>
+</ul>
+</li>
+<li>PPP比HDLC多2个字节的协议字段<ul>
+<li>协议字段为0x0021时代表信息字段就是IP数据报</li>
+<li>0xC021——链路控制数据</li>
+<li>0x8021——网络控制数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>局域网——范围较小，较好的传输特性<ul>
+<li>局域网介质访问控制方法<ul>
+<li>CSMA/CD：以太网</li>
+<li>令牌总线：物理上总线型，逻辑上令牌环型</li>
+<li>令牌环：环型网</li>
+</ul>
+</li>
+<li>IEEE 802系列将局域网数据链路层分为LLC(逻辑链路控制)和MAC(媒体访问控制)</li>
+<li>以太网——逻辑上采用总线型拓扑结构，物理上是星型<ul>
+<li>以太网采用无连接的方式，不对发送的数据帧编号，没有确认机制，尽最大努力交付，不可靠服务</li>
+<li>CSMA/CD发送工作——(1)形成MAC帧(2)监听传输媒体(3)如果空闲，则发送数据，同时继续监听。如果忙，则继续监听(4)发送过程检测到冲突，立即停止发送(5)如果发送次数小于某个阈值，则利用退避算法计算退避时间准备重发，否则停止发送报告网络故障</li>
+<li>CSMA/CD接收工作——检测到残帧不予理会，对MAC帧分析目的地址，匹配则接收复制，否则丢弃</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>局域网的扩展<ul>
+<li>物理层使用集线器</li>
+<li>数据链路层使用网桥和交换机</li>
+<li>网桥的优点<ul>
+<li>过滤通信量</li>
+<li>扩大物理范围</li>
+<li>提高可靠性</li>
+<li>互连不通的物理层，互连不同类型的局域网</li>
+</ul>
+</li>
+<li>网桥缺点<ul>
+<li>增加了延时</li>
+<li>MAC子层并没有流量控制功能</li>
+<li>不通MAC子层的网段桥接在一起的话，需要帧格式转换</li>
+<li>适用于小型网络，否则会因为传播过多而产生拥塞，即广播风暴</li>
+</ul>
+</li>
+<li>透明网桥——刚开始是网桥的转发表是空的，不断学习，记下源地址和进入网桥的端口。生成树算法(无环)</li>
+<li>源路由网桥——路由选择有发送数据的源站负责。选择的是最佳路由</li>
+<li>交换机——多端口网桥<ul>
+<li>直通式</li>
+<li>存储转发式</li>
+</ul>
+</li>
+<li>以太网交换机可以实现虚拟局域网VLAN——可以隔离冲突域，隔离广播域</li>
+<li>交换机、网桥能隔离冲突域，但不能隔离广播域(仍然是1个)。</li>
+<li>集线器不能隔离冲突域和广播域</li>
+<li>路由器都可以隔离</li>
+<li>使用交换机，假设每个端口的带宽是10MB/s，N对端口的总容量是N*10。而普通共享式n个用户，每个用户只有10/n带宽</li>
+</ul>
+</li>
+</ul>
+<h4 id="广域网和局域网的区别和联系"><a href="#广域网和局域网的区别和联系" class="headerlink" title="广域网和局域网的区别和联系"></a>广域网和局域网的区别和联系</h4><ul>
+<li>OSI层次<ul>
+<li>广域网：物理层，数据链路层，网络层</li>
+<li>局域网：物理层，数据链路层</li>
+</ul>
+</li>
+<li>着重点<ul>
+<li>广域网：资源共享</li>
+<li>局域网：数据传输</li>
+</ul>
+</li>
+<li>连接方式<ul>
+<li>广域网：点到点链路连接</li>
+<li>局域网：多点连接</li>
+</ul>
+</li>
+<li>广域网和局域网从互联网角度看是平等的，并不是包含关系</li>
+</ul>
+<h4 id="差错检测"><a href="#差错检测" class="headerlink" title="差错检测"></a>差错检测</h4><ul>
+<li>海明码——纠错d比特的错误，需要的码距为2d+1，检错，则码距需要d+1</li>
+<li>海明码能够纠正一位错码</li>
+<li>连续ARQ协议(Go-Back-N)——捎带确认，发送方收到某一帧的确认表明之前的数据帧都已全部正确接收</li>
+<li>选择ARQ协议——不具有累积确认</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lujiamin.github.io/2017/06/19/NetPoints/" data-id="cj4405dei0003tsopmw3ja3cz" class="article-share-link">Share</a>
+      <a data-url="https://lujiamin.github.io/2017/06/19/NetPoints/" data-id="cj449zfbn0005fwop1ah8km8g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/review/">review</a></li></ul>
