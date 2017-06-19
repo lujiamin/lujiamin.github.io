@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>the Points of Computer Network | blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="网络层 子网划分中，将主机地址划分为子网号和主机号。子网号和主机号都不能是全0或全1 CIDR中，‘/’后面的N表示可以自由分配32-N位 ICMP封装在IP数据报中，再封装在链路层的帧中 对于已经分片的分组，只对第一个分片产生ICMP差错报文 ARP协议中，ARP请求是广播方式，ARP响应是单播 将IP网络划分成子网，好处是减少广播域的大小 CIDR技术的作用是把小的网络汇聚成大的超网 在IP首">
+<meta name="keywords" content="review">
+<meta property="og:type" content="article">
+<meta property="og:title" content="the Points of Computer Network">
+<meta property="og:url" content="https://lujiamin.github.io/2017/06/19/NetPoints/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="网络层 子网划分中，将主机地址划分为子网号和主机号。子网号和主机号都不能是全0或全1 CIDR中，‘/’后面的N表示可以自由分配32-N位 ICMP封装在IP数据报中，再封装在链路层的帧中 对于已经分片的分组，只对第一个分片产生ICMP差错报文 ARP协议中，ARP请求是广播方式，ARP响应是单播 将IP网络划分成子网，好处是减少广播域的大小 CIDR技术的作用是把小的网络汇聚成大的超网 在IP首">
+<meta property="og:updated_time" content="2017-06-19T10:31:50.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="the Points of Computer Network">
+<meta name="twitter:description" content="网络层 子网划分中，将主机地址划分为子网号和主机号。子网号和主机号都不能是全0或全1 CIDR中，‘/’后面的N表示可以自由分配32-N位 ICMP封装在IP数据报中，再封装在链路层的帧中 对于已经分片的分组，只对第一个分片产生ICMP差错报文 ARP协议中，ARP请求是广播方式，ARP响应是单播 将IP网络划分成子网，好处是减少广播域的大小 CIDR技术的作用是把小的网络汇聚成大的超网 在IP首">
+  
+    <link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lujiamin.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-NetPoints" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/19/NetPoints/" class="article-date">
+  <time datetime="2017-06-19T11:00:00.000Z" itemprop="datePublished">2017-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      the Points of Computer Network
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><ul>
+<li>子网划分中，将主机地址划分为子网号和主机号。子网号和主机号都不能是全0或全1</li>
+<li>CIDR中，‘/’后面的N表示可以自由分配32-N位</li>
+<li>ICMP封装在IP数据报中，再封装在链路层的帧中</li>
+<li>对于已经分片的分组，只对第一个分片产生ICMP差错报文</li>
+<li>ARP协议中，ARP请求是广播方式，ARP响应是单播</li>
+<li>将IP网络划分成子网，好处是减少广播域的大小</li>
+<li>CIDR技术的作用是把小的网络汇聚成大的超网</li>
+<li>在IP首部的字段中，与分片和重组无关的字段是总长度<a id="more"></a></li>
+<li>路由算法<ul>
+<li>距离-向量路由算法——每个节点定期将路由表传送给直接相邻的节点</li>
+<li>链路状态路由算法——1.主动测试所有邻接点的状态   2.定期将链路状态传播给所有节点</li>
+<li>距离—路由向量算法可能遇到路由环路问题</li>
+</ul>
+</li>
+<li>IP分组进行直接交付时，要求发送方和目的站具有相同的子网地址</li>
+</ul>
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><ul>
+<li>传输层为进程之间提供通信，网络层为主机之间提供通信</li>
+<li>OSI 模型中，提供端到端的透明传输服务、差错控制和流量控制的是传输层</li>
+<li>端到端连接</li>
+<li>可靠的传输协议中的“可靠”指的是——使用确认机制来确保传输的数据不丢失</li>
+<li>UDP既不进行流量控制也不进行拥塞控制，但是在IP数据报服务的基础上增加了端口的复用和分用以及差错控制的功能</li>
+<li>UDP校验和可有可无，不使用校验和设置为0，但是如果计算结果为0，则需要全部取反置为全1</li>
+<li>远程登录需要可靠连接，使用UDP不适合</li>
+<li>实时传输需要使用UDP</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lujiamin.github.io/2017/06/19/NetPoints/" data-id="cj4405dei0003tsopmw3ja3cz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/review/">review</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/19/CompilePrinciple/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          the Points of Compile Principle
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/16/ComputerNetwork/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">the review of Computer Network</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/review/">review</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/review/" style="font-size: 10px;">review</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/19/CompilePrinciple/">the Points of Compile Principle</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/19/NetPoints/">the Points of Computer Network</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/16/ComputerNetwork/">the review of Computer Network</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/14/DataBase/">the review of the DataBase</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/14/PrincipleOfComputerOrg/">the review of the Principle of Computer Organization</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 lujiamin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

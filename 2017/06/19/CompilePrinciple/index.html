@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | blog</title>
+  <title>the Points of Compile Principle | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="语法制导翻译——以语法分析为主导的语义处理，在对源程序进行语法分析的过程中嵌入语义动作 源程序——&amp;gt;中间语言——&amp;gt;目标程序 中间语言的好处 重新生成目标代码容易 目标代码更容易优化   中间语言的形式 逆波兰 三元式 四元式">
+<meta name="keywords" content="review">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://lujiamin.github.io/2017/06/04/hello-world/index.html">
+<meta property="og:title" content="the Points of Compile Principle">
+<meta property="og:url" content="https://lujiamin.github.io/2017/06/19/CompilePrinciple/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-06-03T16:13:26.335Z">
+<meta property="og:description" content="语法制导翻译——以语法分析为主导的语义处理，在对源程序进行语法分析的过程中嵌入语义动作 源程序——&amp;gt;中间语言——&amp;gt;目标程序 中间语言的好处 重新生成目标代码容易 目标代码更容易优化   中间语言的形式 逆波兰 三元式 四元式">
+<meta property="og:updated_time" content="2017-06-19T10:31:33.298Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="the Points of Compile Principle">
+<meta name="twitter:description" content="语法制导翻译——以语法分析为主导的语义处理，在对源程序进行语法分析的过程中嵌入语义动作 源程序——&amp;gt;中间语言——&amp;gt;目标程序 中间语言的好处 重新生成目标代码容易 目标代码更容易优化   中间语言的形式 逆波兰 三元式 四元式">
   
     <link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
   
@@ -63,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-CompilePrinciple" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/04/hello-world/" class="article-date">
-  <time datetime="2017-06-03T16:13:26.335Z" itemprop="datePublished">2017-06-04</time>
+    <a href="/2017/06/19/CompilePrinciple/" class="article-date">
+  <time datetime="2017-06-19T11:00:00.000Z" itemprop="datePublished">2017-06-19</time>
 </a>
     
   </div>
@@ -77,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      the Points of Compile Principle
     </h1>
   
 
@@ -85,37 +86,63 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <ul>
+<li>语法制导翻译——以语法分析为主导的语义处理，在对源程序进行语法分析的过程中嵌入语义动作</li>
+<li>源程序——&gt;中间语言——&gt;目标程序</li>
+<li>中间语言的好处<ul>
+<li>重新生成目标代码容易</li>
+<li>目标代码更容易优化</li>
+</ul>
+</li>
+<li>中间语言的形式<ul>
+<li>逆波兰</li>
+<li>三元式</li>
+<li>四元式<a id="more"></a></li>
+</ul>
+</li>
+<li>YACC——是一个程序，它接受LALR文法类。语法分析程序</li>
+<li>LEX——词法分析程序</li>
+<li>第一次采用形式体系方法定义语法规则的语言是ALGOL语言</li>
+<li>编译程序组成(8个)<ul>
+<li>源程序</li>
+<li>词法分析</li>
+<li>语法分析</li>
+<li>语义分析</li>
+<li>中间代码</li>
+<li>代码优化</li>
+<li>目标代码</li>
+<li>目标程序</li>
+</ul>
+</li>
+<li>汇编程序——把汇编代码翻译成机器语言的目标程序</li>
+<li>编译程序——高级语言的源程序翻译成目标程序</li>
+<li>解释程序——不是直接将高级语言翻译成目标程序后再执行，而是边翻译边执行</li>
+<li>自编译——高级语言与之对应的编译程序能用该语言本身写出来</li>
+<li>交叉编译——在A机器上运行，在B机器上产生目标代码</li>
+<li>移植——把一台计算机上的软件移植到另一台计算机上</li>
+<li>趟程——从头到尾扫描一遍源程序，并做加工处理</li>
+<li>自底向上语法分析，总控程序一样，只是分析表各不一样</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lujiamin.github.io/2017/06/04/hello-world/" data-id="cj4405dex0009tsoppkpd9zhv" class="article-share-link">Share</a>
+      <a data-url="https://lujiamin.github.io/2017/06/19/CompilePrinciple/" data-id="cj4405de20000tsopzxiginoj" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/review/">review</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/06/14/PrincipleOfComputerOrg/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          the review of the Principle of Computer Organization
-        
-      </div>
-    </a>
   
+    <a href="/2017/06/19/NetPoints/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">the Points of Computer Network</div>
+    </a>
   
 </nav>
 
